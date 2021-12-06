@@ -58,7 +58,7 @@ class MultiHeadAttentionBlock(torch.nn.Module):
         
         self.heads = nn.ModuleList(self.heads)
         
-        self.fc = nn.Linear(n_heads * dim_val, dim_val, bias = False)
+        self.fc = nn.Linear(n_heads * dim_val, dim_val, bias = True)
                       
         
     def forward(self, x, kv = None):
@@ -78,7 +78,7 @@ class Value(torch.nn.Module):
         super(Value, self).__init__()
         self.dim_val = dim_val
         
-        self.fc1 = nn.Linear(dim_input, dim_val, bias = False)
+        self.fc1 = nn.Linear(dim_input, dim_val, bias = True)
         #self.fc2 = nn.Linear(5, dim_val)
     
     def forward(self, x):
@@ -92,7 +92,7 @@ class Key(torch.nn.Module):
         super(Key, self).__init__()
         self.dim_attn = dim_attn
         
-        self.fc1 = nn.Linear(dim_input, dim_attn, bias = False)
+        self.fc1 = nn.Linear(dim_input, dim_attn, bias = True)
         #self.fc2 = nn.Linear(5, dim_attn)
     
     def forward(self, x):
@@ -106,7 +106,7 @@ class Query(torch.nn.Module):
         super(Query, self).__init__()
         self.dim_attn = dim_attn
         
-        self.fc1 = nn.Linear(dim_input, dim_attn, bias = False)
+        self.fc1 = nn.Linear(dim_input, dim_attn, bias = True)
         #self.fc2 = nn.Linear(5, dim_attn)
     
     def forward(self, x):
@@ -170,7 +170,7 @@ class EncoderLayer(torch.nn.Module):
         a = self.attn(x)
         x = self.norm1(x + a)
         
-        a = self.fc1(F.elu(self.fc2(x)))
+        a = self.fc1(F.relu(self.fc2(x)))
         x = self.norm2(x + a)
         
         return x
@@ -194,7 +194,7 @@ class DecoderLayer(torch.nn.Module):
         a = self.attn2(x, kv = enc)
         x = self.norm2(a + x)
         
-        a = self.fc1(F.elu(self.fc2(x)))
+        a = self.fc1(F.relu(self.fc2(x)))
         
         x = self.norm3(x + a)
         return x
