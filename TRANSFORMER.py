@@ -58,7 +58,7 @@ class MultiHeadAttentionBlock(torch.nn.Module):
         
         self.heads = nn.ModuleList(self.heads)
         
-        self.fc = nn.Linear(n_heads * dim_val, dim_val, bias = true)
+        self.fc = nn.Linear(n_heads * dim_val, dim_val, bias = True)
                       
         
     def forward(self, x, kv = None):
@@ -78,7 +78,7 @@ class Value(torch.nn.Module):
         super(Value, self).__init__()
         self.dim_val = dim_val
         
-        self.fc1 = nn.Linear(dim_input, dim_val, bias = true)
+        self.fc1 = nn.Linear(dim_input, dim_val, bias = True)
         #self.fc2 = nn.Linear(5, dim_val)
     
     def forward(self, x):
@@ -92,7 +92,7 @@ class Key(torch.nn.Module):
         super(Key, self).__init__()
         self.dim_attn = dim_attn
         
-        self.fc1 = nn.Linear(dim_input, dim_attn, bias = true)
+        self.fc1 = nn.Linear(dim_input, dim_attn, bias = True)
         #self.fc2 = nn.Linear(5, dim_attn)
     
     def forward(self, x):
@@ -106,7 +106,7 @@ class Query(torch.nn.Module):
         super(Query, self).__init__()
         self.dim_attn = dim_attn
         
-        self.fc1 = nn.Linear(dim_input, dim_attn, bias = true)
+        self.fc1 = nn.Linear(dim_input, dim_attn, bias = True)
         #self.fc2 = nn.Linear(5, dim_attn)
     
     def forward(self, x):
