@@ -170,7 +170,7 @@ class EncoderLayer(torch.nn.Module):
         a = self.attn(x)
         x = self.norm1(x + a)
         
-        a = self.fc1(torch.tanh(self.fc2(x)))
+        a = self.fc1(F.relu(self.fc2(x)))
         x = self.norm2(x + a)
         
         return x
@@ -194,7 +194,7 @@ class DecoderLayer(torch.nn.Module):
         a = self.attn2(x, kv = enc)
         x = self.norm2(a + x)
         
-        a = self.fc1(torch.tanh(self.fc2(x)))
+        a = self.fc1(F.relu(self.fc2(x)))
         
         x = self.norm3(x + a)
         return x
