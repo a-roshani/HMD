@@ -28,7 +28,7 @@ def lstm(dataset,  TIME_STEPS, h , val_spl,unit ,batch_size,vb,Epoch,Lr):
   X_train = X_train.reshape((X_train.shape[0],TIME_STEPS,1))
   model = keras.Sequential()
   model.add(
-    keras.layers.LSTM(
+    keras.layers.CuDNNLSTM(
       units=unit,
       input_shape=(X_train.shape[1], X_train.shape[2]),
       activation="sigmoid",#relu#sigmoid
